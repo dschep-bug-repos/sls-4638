@@ -42,8 +42,10 @@ provider:
 #            - "/*"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+  environment:
+    variable1: value1
+    variable2: ${ssm:/sls-4638}
+    variable4: ${file(variable4.yaml):value}
 
 # you can add packaging information here
 #package:
@@ -57,6 +59,10 @@ provider:
 functions:
   hello:
     handler: handler.hello
+  hello2:
+    handler: handler.hello
+    environment:
+      variable3: {Ref: HelloLambdaFunction}
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
